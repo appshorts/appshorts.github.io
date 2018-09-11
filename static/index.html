@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="" data-ember-extension="1" lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <title>App Shorts</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+
+    <script>
+        var appShorts = appShorts || {};
+        appShorts.url = {
+            base: 'https://public-api.wordpress.com/rest/v1.1/sites/124915882/',
+            apiGetPostsPath: 'posts/',
+            apiGetCategoriesPath: 'categories/'
+        };
+
+        (function() {
+            appShorts.getUrlParams = function() {
+                var hash = window.location.hash.replace("#", "");
+                var params = {};
+                if (hash) {
+                    var queryString = hash.substr(0, hash.length);
+                    params = {};
+                    var pairs = queryString.split('&');
+                    for (var i in pairs) {
+                        var split = pairs[i].split('=');
+                        params[decodeURIComponent(split[0])] = decodeURIComponent(split[1]);
+                    };
+                }
+                return params;
+            };
+            if (window.fetch) {
+
+                appShorts.fetchResp = {};
+                var params = appShorts.getUrlParams();
+                appShorts.params = params;
+                var postsUrl = appShorts.url.base + appShorts.url.apiGetPostsPath;
+
+                if (params.category)
+                    postsUrl += '?category=' + params.category;
+                appShorts.fetchResp.postResp = fetch(postsUrl);
+
+                if (params.title && params.id) {
+                    postsUrl = appShorts.url.base + appShorts.url.apiGetPostsPath + params.id;
+                    appShorts.fetchResp.singlePostResp = fetch(postsUrl);
+                }
+                appShorts.fetchResp.catResp = fetch(appShorts.url.base + appShorts.url.apiGetCategoriesPath);
+            }
+            if (window.FontFace) {
+                new FontFace("sansation", "url(static/sansation_light.woff)").load();
+                new FontFace("Varela Round", "url(static/Varela.woff2)").load();
+            }
+
+        })();
+    </script>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+    <link href="/static/appshorts-min-style.css" media="all" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" href="/static/manifest.json">
+
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png">
+
+</head>
+
+<body class="home blog hover">
+    <?xml version="1.0" standalone="no"?>
+
+    <div id="ajaxLoader">
+        <svg id="SVG-Circus-2e0d982b-9ff7-ed8e-2bc7-1b3ba263fc24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100" preserveaspectratio="xMidYMid meet"><circle id="actor_2" cx="50" cy="50" r="25" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(3,0,0,1)" stroke-width="7" stroke-opacity="1" stroke-dasharray="22 30"/><circle id="actor_1" cx="50" cy="50" r="12.5" opacity="1" fill="rgba(15,1,1,0)" fill-opacity="1" stroke="rgba(0,0,0,1)" stroke-width="7" stroke-opacity="1" stroke-dasharray="13 13"/><script type="text/ecmascript"><![CDATA[(function(){var actors={};actors.actor_1={node:document.getElementById("SVG-Circus-2e0d982b-9ff7-ed8e-2bc7-1b3ba263fc24").getElementById("actor_1"),type:"circle",cx:50,cy:50,dx:25,dy:21,opacity:1};actors.actor_2={node:document.getElementById("SVG-Circus-2e0d982b-9ff7-ed8e-2bc7-1b3ba263fc24").getElementById("actor_2"),type:"circle",cx:50,cy:50,dx:50,dy:21,opacity:1};var tricks={};tricks.trick_1=(function(t,a){a=(function(n){return n})(a)%1,a=a*1%1,a=0>a?1+a:a;var M=a*1*360*Math.PI/180,i=t._tMatrix,_=Math.cos(M),c=Math.sin(M),x=-Math.sin(M),s=Math.cos(M),h=-t.cx*Math.cos(M)+t.cy*Math.sin(M)+t.cx,n=-t.cx*Math.sin(M)-t.cy*Math.cos(M)+t.cy,r=i[0]*_+i[2]*c,o=i[1]*_+i[3]*c,y=i[0]*x+i[2]*s,f=i[1]*x+i[3]*s,d=i[0]*h+i[2]*n+i[4],e=i[1]*h+i[3]*n+i[5];t._tMatrix[0]=r,t._tMatrix[1]=o,t._tMatrix[2]=y,t._tMatrix[3]=f,t._tMatrix[4]=d,t._tMatrix[5]=e});tricks.trick_2=(function(t,a){a=(function(n){return n})(a)%1,a=a*1%1,a=0>a?1+a:a;var M=a*-1*360*Math.PI/180,i=t._tMatrix,_=Math.cos(M),c=Math.sin(M),x=-Math.sin(M),s=Math.cos(M),h=-t.cx*Math.cos(M)+t.cy*Math.sin(M)+t.cx,n=-t.cx*Math.sin(M)-t.cy*Math.cos(M)+t.cy,r=i[0]*_+i[2]*c,o=i[1]*_+i[3]*c,y=i[0]*x+i[2]*s,f=i[1]*x+i[3]*s,d=i[0]*h+i[2]*n+i[4],e=i[1]*h+i[3]*n+i[5];t._tMatrix[0]=r,t._tMatrix[1]=o,t._tMatrix[2]=y,t._tMatrix[3]=f,t._tMatrix[4]=d,t._tMatrix[5]=e});var scenarios={};scenarios.scenario_1={actors: ["actor_1"],tricks: [{trick: "trick_2",start:0,end:1}],startAfter:0,duration:1000,actorDelay:0,repeat:0,repeatDelay:0};scenarios.scenario_2={actors: ["actor_2"],tricks: [{trick: "trick_1",start:0,end:1}],startAfter:0,duration:1000,actorDelay:0,repeat:0,repeatDelay:0};var _reqAnimFrame=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.oRequestAnimationFrame,fnTick=function(t){var r,a,i,e,n,o,s,c,m,f,d,k,w;for(c in actors)actors[c]._tMatrix=[1,0,0,1,0,0];for(s in scenarios)for(o=scenarios[s],m=t-o.startAfter,r=0,a=o.actors.length;a>r;r++){if(i=actors[o.actors[r]],i&&i.node&&i._tMatrix)for(f=0,m>=0&&(d=o.duration+o.repeatDelay,o.repeat>0&&m>d*o.repeat&&(f=1),f+=m%d/o.duration),e=0,n=o.tricks.length;n>e;e++)k=o.tricks[e],w=(f-k.start)*(1/(k.end-k.start)),tricks[k.trick]&&tricks[k.trick](i,Math.max(0,Math.min(1,w)));m-=o.actorDelay}for(c in actors)i=actors[c],i&&i.node&&i._tMatrix&&i.node.setAttribute("transform","matrix("+i._tMatrix.join()+")");_reqAnimFrame(fnTick)};_reqAnimFrame(fnTick);})()]]></script></svg>
+    </div>
+
+    <div class="mobile_menu_wrapper" id="mobile_main_menu">
+        <ul class="categoryList">
+        </ul>
+    </div>
+
+    <div id="header">
+        <a id="logo" href="#" class="header_elements">App-Shorts</a>
+        <ul id="main_menu" class="categoryList">
+        </ul>
+        <div id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- Begin logo -->
+        <!-- End logo -->
+    </div>
+
+    <div id="overlay_background">
+    </div>
+
+    <div id="mainPostWrapper" style="display:none">
+        <br class="clear">
+        <br class="clear">
+        <br class="clear">
+        <div id="page_content_wrapper" class="hasbg ">
+            <div class="inner">
+
+                <!-- Begin main content -->
+
+
+                <div class="sidebar_content full_width">
+                    <div id="mainPost"></div>
+                </div>
+                <!-- End main content -->
+
+            </div>
+
+        </div>
+
+        <br class="clear">
+        <br class="clear">
+
+    </div>
+
+    <div id="post_list">
+        <!-- Begin each blog post -->
+    </div>
+
+
+
+    <div id="categoryMenuBar" style="display:none">
+        <li>
+            <a href="CATEGORY_LINK">
+                CATEGORY_NAME</a>
+        </li>
+    </div>
+    <div id="singlePost" style="display:none">
+        <div class="post_card" data-column="COLUMN">
+            <div class="post_title_section">
+                <a href="#category=CATEGORY_ID">
+                    <!--<img alt="" class="post_image">-->
+                </a>
+                <a href="TITLELINK" data-state="single_post" class="title">NAME</a>
+                <br>
+                <span class="post_info_date">DATE</span>
+            </div>
+
+            <div id="MAINID" class="post">MAINPOST
+            </div>
+            <span class="moreLess" data-moreless="true" id="MORELESSID" align="left">Expand</span>
+        </div>
+    </div>
+
+    <div class="footer_bar">
+        <div id="copyright">
+            © Copyright AppShorts
+        </div>
+    </div>
+
+    <div id="askForNotification">
+        <div class="post">Liked the posts!! Receive frequent updates from our service. Press "Yes" to acknowledge.</div>
+        <button class="no">No</button><button class="yes">Yes</button>&nbsp; &nbsp; &nbsp;
+    </div>
+
+    <script>
+        appShorts.refs = {
+            mainPostWrapper: document.querySelector('#mainPostWrapper'),
+            mainPost: document.querySelector('#mainPost'),
+            singlePost: document.querySelector('#singlePost'),
+            post_list: document.querySelector('#post_list'),
+            ajaxLoader: document.querySelector("#ajaxLoader"),
+        };
+
+        appShorts.addEvent = {
+            ajaxStart: function() {
+                appShorts.refs.ajaxLoader.style.display = "block";
+            },
+
+            ajaxStop: function() {
+                appShorts.refs.ajaxLoader.style.display = "none";
+            },
+        };
+
+        appShorts.data_json = [];
+
+        appShorts.textLimit = 150;
+
+        appShorts.createBasicPost = function(json, format, index) {
+            var column = "";
+            var categories = json.categories;
+            var categoryObjKey = Object.keys(categories)[0];
+            var categoryObj = categories[categoryObjKey];
+            var date = (new Date(json.date)).toString().substring(0, 16);
+            var currentData = format.replace('COLUMN', column).replace('URL', "src=" + json.featured_image).replace('TYPE', categoryObj.name).replace('NAME', json.title).replace('DATE', date).replace('TITLELINK', json.titleLink).replace('FBSHARELINK', json.slug).replace('CATEGORY_ID', categoryObj.slug);
+            return currentData;
+        };
+
+        appShorts.createHalfColumnPost = function(json, format, index) {
+            var currentData = appShorts.createBasicPost(json, format, index);
+            return currentData.replace('MAINPOST', json.content.substring(0, appShorts.textLimit) + "...")
+                .replace('MAINID', "main" + json.ID)
+                .replace('MORELESSID', "moreLess" + json.ID);
+        };
+
+        appShorts.createFullColumnPost = function(json, format, index) {
+            var currentData = appShorts.createBasicPost(json, format, index);
+            return currentData.replace('MAINPOST', json.content).
+            replace('Expand', '');
+        };
+
+        appShorts.populateSinglePost = function(categoryId, slug, data_json) {
+            var mainPostWrapper = appShorts.refs.mainPostWrapper;
+            var mainPost = appShorts.refs.mainPost;
+            var format = appShorts.refs.singlePost.innerHTML;
+
+            data_json = appShorts.prepareTitleLink(data_json, categoryId);
+
+            requestAnimationFrame(function() {
+                mainPost.innerHTML = (appShorts.createFullColumnPost(data_json, format, 0));
+                mainPostWrapper.style.display = "block";
+            });
+
+        };
+
+        appShorts.populateList = function(categoryId, data_json) {
+            var content = "<br class='clear''>";
+            var format = appShorts.refs.singlePost.innerHTML;
+            var postListRef = appShorts.refs.post_list;
+
+            appShorts.data_json = data_json.posts;
+            data_json.posts.forEach(function(json, index) {
+                json = appShorts.prepareTitleLink(json, categoryId);
+                var currentData = appShorts.createHalfColumnPost(json, format, index);
+                content += currentData;
+            });
+            requestAnimationFrame(function() {
+                postListRef.innerHTML = content;
+                appShorts.refs.footerBar.style.display = "block";
+            });
+        };
+
+        appShorts.prepareTitleLink = function(json, categoryId) {
+            json.titleLink = "#title=" + json.slug + "&id=" + json.ID;
+            if (categoryId) {
+                json.titleLink += "&category=" + categoryId;
+            };
+            return json;
+        };
+
+        appShorts.populateCategories = function(data_json) {
+            var categoryList = document.querySelectorAll('.categoryList');
+            var format = document.querySelector('#categoryMenuBar').innerHTML;
+
+            var menuList = '';
+            data_json.categories.forEach(function(json) {
+                menuList += format.replace('CATEGORY_LINK', "/#category=" + json.slug).replace('CATEGORY_NAME', json.name);
+            });
+            categoryList.forEach(function(eachCategoryList) {
+                requestAnimationFrame(function() {
+                    eachCategoryList.innerHTML = menuList;
+                });
+            });
+
+        };
+
+        appShorts.moreLessEvent = function() {
+            var elem = document.getElementById('post_list');
+            elem.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var currentElem = e.target;
+                var id = currentElem.getAttribute("id");
+                if (id && id.indexOf("moreLess") >= 0) {
+                    id = id.replace('moreLess', '');
+                    var text = currentElem.innerText;
+                    var mainElement = document.querySelector('#main' + id);
+
+                    if (text === 'Expand') {
+                        appShorts.data_json.forEach(function(json) {
+                            if (json.ID == id) {
+                                mainElement.innerHTML = (json.content);
+                                return true;
+                            }
+                        });
+                        currentElem.innerHTML = ('Collapse');
+                    } else if (text === 'Collapse') {
+                        appShorts.data_json.forEach(function(json) {
+                            if (json.ID == id) {
+                                mainElement.innerHTML = (json.content.substring(0, appShorts.textLimit) + "...");
+                                return true;
+                            }
+                        });
+                        currentElem.innerHTML = ('Expand');
+                    };
+                }
+            });
+        };
+
+        (function(appShorts) {
+            if (appShorts.fetchResp) {
+                var params = appShorts.params;
+                if (appShorts.fetchResp.singlePostResp) {
+                    appShorts.addEvent.ajaxStart();
+                    appShorts.fetchResp.singlePostResp.then(function(response) {
+                        return response.json()
+                    }).then(function(data) {
+                        appShorts.populateSinglePost(params.category, params.title, data);
+                        appShorts.fetchResp.singlePostResp = null;
+                        appShorts.addEvent.ajaxStop();
+                    });
+                }
+                if (appShorts.fetchResp.postResp) {
+                    appShorts.addEvent.ajaxStart();
+                    appShorts.fetchResp.postResp.then(function(response) {
+                        return response.json()
+                    }).then(function(data) {
+                        appShorts.populateList(params.category, data);
+                        appShorts.fetchResp.postResp = null;
+                        appShorts.moreLessEvent();
+                        appShorts.addEvent.ajaxStop();
+                    });
+                }
+
+                if (appShorts.fetchResp.catResp) {
+                    appShorts.addEvent.ajaxStart();
+                    appShorts.fetchResp.catResp.then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        appShorts.populateCategories(data);
+                        appShorts.fetchResp.catResp = null;
+                        appShorts.addEvent.ajaxStop();
+                    });
+                }
+
+                delete appShorts.params;
+            }
+
+        })(appShorts);
+    </script>
+
+
+    <script src="/static/appshorts-min-script.js" type="text/javascript">
+    </script>
+
+
+
+    <script>
+        appShorts.route();
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

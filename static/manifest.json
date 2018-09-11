@@ -1,0 +1,7 @@
+{
+    "name": "AppShorts",
+    "short_name": "AppShorts Push",
+    "display": "standalone",
+    "gcm_sender_id": "40797624865",
+    "gcm_user_visible_only": true
+}
